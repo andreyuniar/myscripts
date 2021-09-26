@@ -7,7 +7,7 @@
 # CI build script
 
 # Needed exports
-export TELEGRAM=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
+export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
 export ANYKERNEL=$(pwd)/anykerne33
 
 # Avoid hardcoding things
@@ -26,7 +26,7 @@ export OUTFILE=${OUTDIR}/arch/arm64/boot/Image.gz-dtb
 export OUTFILE=${OUTDIR}/arch/arm64/boot/dtbo.img
 
 # Kernel groups
-CI_CHANNEL=-1001509763570
+TELEGRAM_CHAT=-1001509763570
 
 # Set default local datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
