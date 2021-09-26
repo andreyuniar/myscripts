@@ -80,7 +80,7 @@ tg_fail() {
 
 # Versioning
 versioning() {
-    cat arch/arm64/configs/vendor/"${DEFCONFIG}" | grep CONFIG_LOCALVERSION= | tee /mnt/workdir/name.sh
+    cat arch/arm64/configs/"${DEFCONFIG}" | grep CONFIG_LOCALVERSION= | tee /mnt/workdir/name.sh
     sed -i 's/-Excalibur-//g' /mnt/workdir/name.sh
     source /mnt/workdir/name.sh
 }
@@ -96,8 +96,8 @@ ZIPNAME="${KERNELNAME}.zip"
 
 # Regenerating Defconfig
 regenerate() {
-    cp out/.config arch/arm64/configs/vendor/"${DEFCONFIG}"
-    git add arch/arm64/configs/vendor/"${DEFCONFIG}"
+    cp out/.config arch/arm64/configs/"${DEFCONFIG}"
+    git add arch/arm64/configs/"${DEFCONFIG}"
     git commit -m "defconfig: Regenerate"
 }
 
