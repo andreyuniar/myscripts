@@ -50,7 +50,6 @@ ZIPNAME="${KERNELNAME}.zip"
 
 # Telegram
 CHANNEL="-1001509763570"
-CHATID=# Group/channel chatid (use rose/userbot to get it)
 TELEGRAM_TOKEN="1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM" # Get from botfather
 
 # Export Telegram.sh
