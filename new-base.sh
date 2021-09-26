@@ -8,7 +8,7 @@
 
 # Needed exports
 export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
-export ANYKERNEL=$(pwd)/anykerne33
+export ANYKERNEL=$(pwd)/anykernel33
 
 # Avoid hardcoding things
 KERNEL=Excalibur Kernel
