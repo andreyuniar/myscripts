@@ -29,9 +29,9 @@ fi
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR
 
-git clone https://github.com/fabianonline/telegram.sh/ telegram
+git clone https://github.com/fabianonline/telegram.sh/ "${TELEGRAM_FOLDER}"
 
 # Export Telegram.sh
-TELEGRAM=${KERNELDIR}/telegram/telegram
+TELEGRAM=${KERNELDIR}/"${TELEGRAM_FOLDER}"/telegram
 
 export TELEGRAM JOBS
