@@ -32,8 +32,14 @@ TELEGRAM_CHAT=-1001509763570
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 
-# Clang is annoying
-PATH="${KERNELDIR}/clang/bin:${PATH}"
+# Compiler
+COMPILER_TYPE="clang" # unset if want to use gcc as compiler
+CLANG_DIR="$HOME/proton-clang"
+if ! [ -d "${CLANG_DIR}" ]; then
+    git clone https://github.com/kdrag0n --depth=1 "$CLANG_DIR"
+fi
+GCC_DIR="" # Doesn't needed if use proton-clang
+GCC32_DIR="" # Doesn't needed if use proton-clang
 
 # Kernel revision
 KERNELRELEASE=surya
