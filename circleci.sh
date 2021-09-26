@@ -139,15 +139,14 @@ packingkernel() {
 }
 
 # Starting
-tg_pub "<b>$CIRCLE_BUILD_NUM CI Build Triggered</b>" \
+tg_cast "<b>$CIRCLE_BUILD_NUM CI Build Triggered</b>" \
   "Compiler: <code>${CSTRING}</code>" \
 	"Device: ${DEVICE}" \
 	"Kernel: <code>${KERNEL}</code>" \
 	"Linux Version: <code>$(make kernelversion)</code>" \
 	"Branch: <code>${PARSE_BRANCH}</code>" \
 	"Commit point: <code>${COMMIT_POINT}</code>" \
-	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>"
-        "Build URL: ${CIRCLE_BUILD_URL}"
+	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>" \
 START=$(date +"%s")
 makekernel
 packingkernel
