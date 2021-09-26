@@ -143,7 +143,7 @@ tg_cast "<b>$CIRCLE_BUILD_NUM CI Build Triggered</b>" \
   "Compiler: <code>${CSTRING}</code>" \
 	"Device: ${DEVICE}" \
 	"Kernel: <code>${KERNEL}</code>" \
-	"Linux Version: <code>$(make kernelversion)</code>" \
+	"Linux Version: <code>$(makekernel)</code>" \
 	"Branch: <code>${PARSE_BRANCH}</code>" \
 	"Commit point: <code>${COMMIT_POINT}</code>" \
 	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>" \
