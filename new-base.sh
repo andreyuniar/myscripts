@@ -101,7 +101,7 @@ shipkernel() {
     zip -r9 "${TEMPZIPNAME}" *
 
     # Ship it to the CI channel
-    "${TELEGRAM}" -f "$ZIPNAME" -c "${CI_CHANNEL}"
+    "${TELEGRAM_TOKEN}" -f "$ZIPNAME" -c "${TELEGRAM_CHAT}"
 
     # Go back for any extra builds
     cd ..
