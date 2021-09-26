@@ -7,7 +7,7 @@
 # CI build script
 
 # Needed exports
-export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
+export TELEGRAM=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
 export ANYKERNEL=$(pwd)/anykerne33
 
 # Avoid hardcoding things
