@@ -21,6 +21,7 @@ ANYKERNEL_BRANCH="master"
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 PARSE_ORIGIN="$(git config --get remote.origin.url)"
 COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
+CHEAD="$(git rev-parse --short HEAD)"
 
 # Compiler
 COMP_TYPE="clang" # unset if want to use gcc as compiler
@@ -79,7 +80,7 @@ tg_fail() {
 
 # Versioning
 versioning() {
-    cat arch/arm64/configs/"${DEFCONFIG}" | grep CONFIG_LOCALVERSION= | tee /mnt/workdir/name.sh
+    cat arch/arm64/configs/vendor/"${DEFCONFIG}" | grep CONFIG_LOCALVERSION= | tee /mnt/workdir/name.sh
     sed -i 's/-Excalibur-//g' /mnt/workdir/name.sh
     source /mnt/workdir/name.sh
 }
@@ -95,8 +96,8 @@ ZIPNAME="${KERNELNAME}.zip"
 
 # Regenerating Defconfig
 regenerate() {
-    cp out/.config arch/arm64/configs/"${DEFCONFIG}"
-    git add arch/arm64/configs/"${DEFCONFIG}"
+    cp out/.config arch/arm64/configs/vendor/"${DEFCONFIG}"
+    git add arch/arm64/configs/vendor/"${DEFCONFIG}"
     git commit -m "defconfig: Regenerate"
 }
 
@@ -114,7 +115,7 @@ makekernel() {
     sed -i 's/${KERNELTYPE}"/${KERNELTYPE}-TEST"/g' "${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG}"
     echo "andrynr@ClytheeFred" > "$KERNEL_DIR"/.builderdata
     export PATH="${COMP_PATH}"
-    make O=out ARCH=arm64 ${DEFCONFIG}
+    make O=out ARCH=arm64 vendor/${DEFCONFIG}
     if [[ "${REGENERATE_DEFCONFIG}" =~ "true" ]]; then
         regenerate
     fi
