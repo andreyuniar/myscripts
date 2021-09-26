@@ -51,7 +51,7 @@ setversioning() {
 
 # Send to channel
 tg_channelcast() {
-    "${TELEGRAM}" -c "${CI_CHANNEL}" -H \
+    "${TELEGRAM_TOKEN}" -c "${TELEGRAM_CHAT}" -H \
     "$(
 		for POST in "${@}"; do
 			echo "${POST}"
