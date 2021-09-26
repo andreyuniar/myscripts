@@ -17,8 +17,8 @@ COMPILER_TYPES=clang
 
 # Pick your poison
 if [[ "${COMPILER_TYPES}" =~ "clang" ]]; then
-        git clone --depth=1 https://gitlab.com/predator112/predator_clang.git -b clang "${KERNELDIR}"/clang
-	COMPILER_TYPE='Predator-clang'
+        git clone --depth=1 https://github.com/kdrag0n/proton-clang clang
+	COMPILER_TYPE='Proton-clang'
 else
         # Default to GCC from Arter
         git clone https://github.com/arter97/arm64-gcc --depth=1 "${KERNELDIR}/gcc"
