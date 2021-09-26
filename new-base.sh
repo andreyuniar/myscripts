@@ -7,25 +7,26 @@
 # CI build script
 
 # Needed exports
-export TELEGRAM_TOKEN=1157809262:AAHNbCHG-XcjgpGuDflcTX8Z_OJiXcjdDr0
-export ANYKERNEL=$(pwd)/anykernel3
+export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
+export ANYKERNEL=$(pwd)/anykerne33
 
 # Avoid hardcoding things
-KERNEL=android-11
-DEFCONFIG=whyred_defconfig
-DEVICE=whyred
+KERNEL=Excalibur Kernel
+DEFCONFIG=surya_defconfig
+DEVICE=surya
 CIPROVIDER=CircleCI
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 PARSE_ORIGIN="$(git config --get remote.origin.url)"
 COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
 
 # Export custom KBUILD
-export KBUILD_BUILD_USER=Predator
-export KBUILD_BUILD_HOST=Iqbal
+export KBUILD_BUILD_USER=andrynr
+export KBUILD_BUILD_HOST=ClytheeFred
 export OUTFILE=${OUTDIR}/arch/arm64/boot/Image.gz-dtb
+export OUTFILE=${OUTDIR}/arch/arm64/boot/dtbo.img
 
 # Kernel groups
-CI_CHANNEL=-1001488385343
+CI_CHANNEL=-1001509763570
 
 # Set default local datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
@@ -35,12 +36,12 @@ BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 PATH="${KERNELDIR}/clang/bin:${PATH}"
 
 # Kernel revision
-KERNELRELEASE=whyred
+KERNELRELEASE=surya
 
 # Function to replace defconfig versioning
 setversioning() {
         # For staging branch
-            KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
+            KERNELNAME="${KERNEL}-${KERNELRELEASE}-${BUILD_DATE}"
 
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
@@ -60,8 +61,8 @@ tg_channelcast() {
 
 # Fix long kernel strings
 kernelstringfix() {
-    git config --global user.name "predator112"
-    git config --global user.email "mi460334@gmail.com"
+    git config --global user.name "andreyuniar"
+    git config --global user.email "andre.yuniar069@gmail.com"
     git add .
     git commit -m "stop adding dirty"
 }
@@ -70,7 +71,7 @@ kernelstringfix() {
 makekernel() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
-    git clone https://github.com/PREDATOR-project/AnyKernel3.git -b BangBroz-oldcam anykernel3
+    git clone https://github.com/andreyuniar/AnyKernel33.git -b master anykernel33
     kernelstringfix
     make O=out ARCH=arm64 ${DEFCONFIG}
     if [[ "${COMPILER_TYPE}" =~ "clang"* ]]; then
@@ -93,6 +94,7 @@ makekernel() {
 shipkernel() {
     # Copy compiled kernel
     cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/
+    cp "${OUTDIR}"/arch/arm64/boot/dtbo.img "${ANYKERNEL}"/
 
     # Zip the kernel, or fail
     cd "${ANYKERNEL}" || exit
@@ -103,29 +105,6 @@ shipkernel() {
 
     # Go back for any extra builds
     cd ..
-}
-
-# Ship China firmware builds
-setnewcam() {
-    export CAMLIBS=NewCam
-    # Pick DSP change
-    sed -i 's/CONFIG_XIAOMI_NEW_CAMERA_BLOBS=n/CONFIG_XIAOMI_NEW_CAMERA_BLOBS=y/g' arch/arm64/configs/${DEFCONFIG}
-    echo -e "Newcam ready"
-}
-
-# Ship China firmware builds
-clearout() {
-    # Pick DSP change
-    rm -rf out
-    mkdir -p out
-}
-
-#Setver 2 for newcam
-setver2() {
-    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewCam-${BUILD_DATE}"
-    export KERNELTYPE KERNELNAME
-    export TEMPZIPNAME="${KERNELNAME}.zip"
-    export ZIPNAME="${KERNELNAME}.zip"
 }
 
 # Fix for CI builds running out of memory
@@ -146,10 +125,6 @@ tg_channelcast "<b>CI Build Triggered</b>" \
 	"Commit point: <code>${COMMIT_POINT}</code>" \
 	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>"
 START=$(date +"%s")
-makekernel || exit 1
-shipkernel
-setnewcam
-setver2
 makekernel || exit 1
 shipkernel
 END=$(date +"%s")
