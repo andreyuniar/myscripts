@@ -69,7 +69,6 @@ kernelstringfix() {
 # Make the kernel
 makekernel() {
     # Clean any old AnyKernel
-    rm -rf ${ANYKERNEL}
     git clone https://github.com/andreyuniar/AnyKernel33.git -b master anykernel33
     kernelstringfix
     make O=out ARCH=arm64 ${DEFCONFIG}
