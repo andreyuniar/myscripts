@@ -60,8 +60,8 @@ tg_channelcast() {
 
 # Fix long kernel strings
 kernelstringfix() {
-    git config --global user.name "predator112"
-    git config --global user.email "mi460334@gmail.com"
+    git config --global user.name "andreyuniar"
+    git config --global user.email "andre.yuniar069@gmail.com"
     git add .
     git commit -m "stop adding dirty"
 }
