@@ -11,7 +11,7 @@ export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM
 export ANYKERNEL=$(pwd)/anykernel33
 
 # Avoid hardcoding things
-KERNEL=android-11
+KERNEL=Excalibur
 DEFCONFIG=surya_defconfig
 DEVICE=surya
 CIPROVIDER=CircleCI
@@ -40,7 +40,7 @@ KERNELRELEASE=surya
 # Function to replace defconfig versioning
 setversioning() {
         # For staging branch
-            KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
+            KERNELNAME="${KERNEL}-${KERNELRELEASE}-${BUILD_DATE}"
 
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
@@ -70,7 +70,7 @@ kernelstringfix() {
 makekernel() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
-    git clone https://github.com/andreyuniar/AnyKernel33.git -b master anykernel3
+    git clone https://github.com/andreyuniar/AnyKernel33.git -b master anykernel33
     kernelstringfix
     make O=out ARCH=arm64 ${DEFCONFIG}
     if [[ "${COMPILER_TYPE}" =~ "clang"* ]]; then
