@@ -7,13 +7,14 @@
 # CI build script
 
 # Needed exports
-export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
+export TELEGRAM_TOKEN=1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM
 export ANYKERNEL=$(pwd)/anykernel33
 
 # Avoid hardcoding things
-KERNEL=Excalibur Kernel
+KERNEL=android-11
 DEFCONFIG=surya_defconfig
 DEVICE=surya
+CIPROVIDER=CircleCI
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 PARSE_ORIGIN="$(git config --get remote.origin.url)"
 COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
@@ -22,23 +23,16 @@ COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
 export KBUILD_BUILD_USER=andrynr
 export KBUILD_BUILD_HOST=ClytheeFred
 export OUTFILE=${OUTDIR}/arch/arm64/boot/Image.gz-dtb
-export OUTFILE=${OUTDIR}/arch/arm64/boot/dtbo.img
 
 # Kernel groups
-TELEGRAM_CHAT=-1001509763570
+CI_CHANNEL=-1001509763570
 
 # Set default local datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 
-# Compiler
-COMPILER_TYPE="clang" # unset if want to use gcc as compiler
-CLANG_DIR="$HOME/proton-clang"
-if ! [ -d "${CLANG_DIR}" ]; then
-    git clone https://github.com/kdrag0n --depth=1 "$CLANG_DIR"
-fi
-GCC_DIR="" # Doesn't needed if use proton-clang
-GCC32_DIR="" # Doesn't needed if use proton-clang
+# Clang is annoying
+PATH="${KERNELDIR}/clang/bin:${PATH}"
 
 # Kernel revision
 KERNELRELEASE=surya
@@ -46,7 +40,7 @@ KERNELRELEASE=surya
 # Function to replace defconfig versioning
 setversioning() {
         # For staging branch
-            KERNELNAME="${KERNEL}-${KERNELRELEASE}-${BUILD_DATE}"
+            KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
 
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
@@ -56,7 +50,7 @@ setversioning() {
 
 # Send to channel
 tg_channelcast() {
-    "${TELEGRAM_TOKEN}" -c "${TELEGRAM_CHAT}" -H \
+    "${TELEGRAM}" -c "${CI_CHANNEL}" -H \
     "$(
 		for POST in "${@}"; do
 			echo "${POST}"
@@ -66,8 +60,8 @@ tg_channelcast() {
 
 # Fix long kernel strings
 kernelstringfix() {
-    git config --global user.name "andreyuniar"
-    git config --global user.email "andre.yuniar069@gmail.com"
+    git config --global user.name "predator112"
+    git config --global user.email "mi460334@gmail.com"
     git add .
     git commit -m "stop adding dirty"
 }
@@ -76,7 +70,7 @@ kernelstringfix() {
 makekernel() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
-    git clone https://github.com/andreyuniar/AnyKernel33.git -b master anykernel33
+    git clone https://github.com/andreyuniar/AnyKernel33.git -b master anykernel3
     kernelstringfix
     make O=out ARCH=arm64 ${DEFCONFIG}
     if [[ "${COMPILER_TYPE}" =~ "clang"* ]]; then
@@ -89,8 +83,8 @@ makekernel() {
     if ! [ -f "${OUTFILE}" ]; then
 	    END=$(date +"%s")
 	    DIFF=$(( END - START ))
-	    echo -e "Kernel compilation failed, See buildlog to fix errors!"
-            tg_channelcast "Build for ${DEVICE} <b>failed</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check Instance for errors @andrynr"
+	    echo -e "Kernel compilation failed, See buildlog to fix errors"
+	    tg_channelcast "Build for ${DEVICE} <b>failed</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors!"
 	    exit 1
     fi
 }
@@ -99,14 +93,13 @@ makekernel() {
 shipkernel() {
     # Copy compiled kernel
     cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/
-    cp "${OUTDIR}"/arch/arm64/boot/dtbo.img "${ANYKERNEL}"/
 
     # Zip the kernel, or fail
     cd "${ANYKERNEL}" || exit
     zip -r9 "${TEMPZIPNAME}" *
 
     # Ship it to the CI channel
-    "${TELEGRAM_TOKEN}" -f "$ZIPNAME" -c "${TELEGRAM_CHAT}"
+    "${TELEGRAM}" -f "$ZIPNAME" -c "${CI_CHANNEL}"
 
     # Go back for any extra builds
     cd ..
