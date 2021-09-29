@@ -50,7 +50,7 @@ DEFCONFIG=whyred_defconfig
 
 ## Set defaults first
 CI_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-token=$TELEGRAM_TOKEN
+export bot token="1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
 export KBUILD_BUILD_HOST CI_BRANCH
 
 ## Export CI Env
