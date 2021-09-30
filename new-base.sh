@@ -52,7 +52,7 @@ ZIPNAME="Excalibur"
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
-AUTHOR="andrynr"
+AUTHOR="andreyuniar"
 
 # Architecture
 ARCH=arm64
