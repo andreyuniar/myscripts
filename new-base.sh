@@ -325,7 +325,7 @@ build_kernel() {
 		 "${MAKE[@]}" modules INSTALL_MOD_PATH="$KERNEL_DIR"/out/modules
 	    make -j"$PROCS" O=out \
 		 "${MAKE[@]}" modules_install INSTALL_MOD_PATH="$KERNEL_DIR"/out/modules
-	    find "$KERNEL_DIR"/out/modules -type f -iname '*.ko' -exec cp {} AnyKernel3/modules/system/lib/modules/ \;
+	    find "$KERNEL_DIR"/out/modules -type f -iname '*.ko' -exec cp {} AnyKernel33/modules/system/lib/modules/ \;
 	fi
 
 		BUILD_END=$(date +"%s")
