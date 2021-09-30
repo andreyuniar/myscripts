@@ -52,7 +52,7 @@ ZIPNAME="Excalibur"
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
-AUTHOR="andreyuniar"
+AUTHOR="andrynr"
 
 # Architecture
 ARCH=arm64
@@ -69,7 +69,7 @@ DEFCONFIG=surya_defconfig
 
 # Specify compiler. 
 # 'clang' or 'gcc'
-COMPILER=gcc
+COMPILER=clang
 
 # Build modules. 0 = NO | 1 = YES
 MODULES=0
