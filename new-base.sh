@@ -52,7 +52,7 @@ ZIPNAME="Excalibur"
 
 # Build Author
 # Take care, it should be a universal and most probably, case-sensitive
-AUTHOR="andreyuniar"
+AUTHOR="andrynr"
 
 # Architecture
 ARCH=arm64
@@ -157,7 +157,7 @@ then
 	if [ "$DRONE" ]
 	then
 		export KBUILD_BUILD_VERSION=$DRONE_BUILD_NUMBER
-		export KBUILD_BUILD_HOST=$DRONE_SYSTEM_HOST
+		export KBUILD_BUILD_HOST="ClytheeFred"
 		export CI_BRANCH=$DRONE_BRANCH
 		export BASEDIR=$DRONE_REPO_NAME # overriding
 		export SERVER_URL="${DRONE_SYSTEM_PROTO}://${DRONE_SYSTEM_HOSTNAME}/${AUTHOR}/${BASEDIR}/${KBUILD_BUILD_VERSION}"
