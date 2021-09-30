@@ -102,7 +102,7 @@ BUILD_DTBO=1
 	then 
 		# Set this to your dtbo path. 
 		# Defaults in folder out/arch/arm64/boot/dts
-		DTBO_PATH="out/arch/arm64/boot/dts"
+		DTBO_PATH="qcom/*.dtbo"
 	fi
 
 # Sign the zipfile
