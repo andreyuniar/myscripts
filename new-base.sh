@@ -102,7 +102,7 @@ BUILD_DTBO=1
 	then 
 		# Set this to your dtbo path. 
 		# Defaults in folder out/arch/arm64/boot/dts
-		DTBO_PATH="qcom/*.dtbo"
+		DTBO_PATH=""
 	fi
 
 # Sign the zipfile
@@ -203,7 +203,7 @@ DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 	if [ $BUILD_DTBO = 1 ]
 	then
 		msg "|| Cloning libufdt ||"
-		git clone https://android.googlesource.com/platform/system/libufdt libufdt
+		git clone https://android.googlesource.com/platform/system/libufdt "$KERNEL_DIR"/scripts/ufdt/libufdt
 	fi
 }
 
@@ -338,7 +338,7 @@ build_kernel() {
 			then
 				msg "|| Building DTBO ||"
 				tg_post_msg "<code>Building DTBO..</code>"
-				python2 "libufdt/utils/src/mkdtboimg.py" \
+				python2 "$KERNEL_DIR/scripts/ufdt/libufdt/utils/src/mkdtboimg.py" \
 					create "$KERNEL_DIR/out/arch/arm64/boot/dtbo.img" --page_size=4096 "$KERNEL_DIR/out/arch/arm64/boot/dts/$DTBO_PATH"
 			fi
 				gen_zip
