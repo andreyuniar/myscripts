@@ -87,6 +87,7 @@ PTTG=1
 	then
 		# Set Telegram Chat ID
 		CHATID="-1001509763570"
+                bot token="1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
 	fi
 
 # Generate a full DEFCONFIG prior building. 1 is YES | 0 is NO(default)
