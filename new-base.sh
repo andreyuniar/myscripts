@@ -87,7 +87,6 @@ PTTG=1
 	then
 		# Set Telegram Chat ID
 		CHATID="-1001509763570"
-                bot token="1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM"
 	fi
 
 # Generate a full DEFCONFIG prior building. 1 is YES | 0 is NO(default)
@@ -224,8 +223,8 @@ exports() {
 		PATH=$GCC64_DIR/bin/:$GCC32_DIR/bin/:/usr/bin:$PATH
 	fi
 
-	BOT_MSG_URL="https://api.telegram.org/bot$token/sendMessage"
-	BOT_BUILD_URL="https://api.telegram.org/bot$token/sendDocument"
+	BOT_MSG_URL="https://api.telegram.org/bot1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM/sendMessage"
+	BOT_BUILD_URL="https://api.telegram.org/bot1976690555:AAEaf0lu50HggtjndG4b4_clThP68hrEIpM/sendDocument"
 	PROCS=$(nproc --all)
 
 	export KBUILD_BUILD_USER ARCH SUBARCH PATH \
